@@ -24,7 +24,7 @@ public class Day4
                     batch = batch.stripLeading();
                     System.out.println(batch);
                     String[] splitPP = batch.split(" ");
-                    System.out.print("Fields: " + splitPP.length);
+
                     for(int i = 0; i < splitPP.length; i++)
                     {
                         String[] splitField = splitPP[i].split(":");
@@ -34,7 +34,10 @@ public class Day4
                             {
                                 int year = Integer.parseInt(splitField[1]);
                                 if(year >= 1920 && year <= 2002)
+                                {
                                     fields[0] = 1;
+                                    System.out.print("BYR valid ");
+                                }
                             }
                         }
                         else if(splitField[0].equalsIgnoreCase("iyr"))
@@ -43,7 +46,10 @@ public class Day4
                             {
                                 int year = Integer.parseInt(splitField[1]);
                                 if (year >= 2010 && year <= 2020)
-                                    fields[0] = 1;
+                                {
+                                    fields[1] = 1;
+                                    System.out.print("IYR Valid ");
+                                }
                             }
                         }
                         else if(splitField[0].equalsIgnoreCase("eyr"))
@@ -52,37 +58,90 @@ public class Day4
                             {
                                 int year = Integer.parseInt(splitField[1]);
                                 if (year >= 2020 && year <= 2030)
-                                    fields[0] = 1;
+                                {
+                                    fields[2] = 1;
+                                    System.out.print("EYR valid ");
+                                }
                             }
                         }
                         else if(splitField[0].equalsIgnoreCase("hgt"))
                         {
                             if(splitField[1].contains("cm"))
                             {
-                                splitField[1] = splitField[1].substring(0, splitField[1].length() - 3);
+                                splitField[1] = splitField[1].substring(0, splitField[1].length() - 2);
                                 int height = Integer.parseInt(splitField[1]);
                                 if(height >= 150 && height <= 193)
                                 {
-                                    
+                                    fields[3] = 1;
+                                    System.out.print("HGT Valid ");
+                                }
+                            }
+                            else if(splitField[1].contains("in"))
+                            {
+                                splitField[1] = splitField[1].substring(0, splitField[1].length() - 2);
+                                int height = Integer.parseInt(splitField[1]);
+                                if(height >= 59 && height <= 76)
+                                {
+                                    fields[3] = 1;
+                                    System.out.print("HGT VALID ");
                                 }
                             }
                         }
                         else if(splitField[0].equalsIgnoreCase("hcl"))
                         {
-                            fields[4] = 1;
+                            if(splitField[1].charAt(0) == '#')
+                            {
+                                splitField[1] = splitField[1].substring(1, splitField[1].length());
+                                if(splitField[1].length() == 6)
+                                {
+                                    boolean isValid = true;
+                                    for(int j = 0; j <= 5; j++)
+                                    {
+                                        if(!Character.isDigit(splitField[1].charAt(j)) && !Character.toString(splitField[1].charAt(j)).matches("[a-f?]"))
+                                        {
+                                            isValid = false;
+                                        }
+                                    }
+
+                                    if(isValid)
+                                    {
+                                        fields[4] = 1;
+                                        System.out.print("HCL Valid ");
+                                    }
+                                }
+                            }
                         }
                         else if(splitField[0].equalsIgnoreCase("ecl"))
                         {
-                            fields[5] = 1;
+                            if(splitField[1].equalsIgnoreCase("amb") || splitField[1].equalsIgnoreCase("blu") || splitField[1].equalsIgnoreCase("brn") || splitField[1].equalsIgnoreCase("gry") || splitField[1].equalsIgnoreCase("grn") || splitField[1].equalsIgnoreCase("hzl") || splitField[1].equalsIgnoreCase("oth"))
+                            {
+                                fields[5] = 1;
+                                System.out.print("ECL Valid ");
+                            }
                         }
                         else if(splitField[0].equalsIgnoreCase("pid"))
                         {
-                            fields[6] = 1;
+                            if(splitField[1].length() == 9)
+                            {
+                                boolean isValid = true;
+                                for(int j = 0; j <= 8; j++)
+                                {
+                                    if(!Character.isDigit(splitField[1].charAt(j)))
+                                    {
+                                        isValid = false;
+                                    }
+                                }
+
+                                if(isValid)
+                                {
+                                    fields[6] = 1;
+                                    System.out.print("PID VALid ");
+                                }
+                            }
                         }
                         else if(splitField[0].equalsIgnoreCase("cid"))
                         {
                             fields[7] = 1;
-                            System.out.print("HAS CID");
                         }
                     }
                     
