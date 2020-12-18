@@ -1,4 +1,6 @@
-*.vscode/
-*.ionide/
-*.class
+.vscode/
+.ionide/
+.class
 Day4.class
+.fake
+.ionide
